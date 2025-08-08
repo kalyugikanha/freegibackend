@@ -1,0 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const users_1 = require("../models/users");
+const category_1 = require("../models/category");
+const subCategory_1 = require("../models/subCategory");
+const product_1 = require("../models/product");
+const address_1 = require("../models/address");
+const reviews_1 = require("../models/reviews");
+const area_1 = require("../models/area");
+const drivingLicence_1 = require("../models/drivingLicence");
+const couponCode_1 = require("../models/couponCode");
+const tax_1 = require("../models/tax");
+const messages_1 = require("../models/messages");
+const driverGeoLocation_1 = require("../models/driverGeoLocation");
+const payment_1 = require("../models/payment");
+exports.default = () => {
+    (0, mongoose_1.model)("Users", users_1.usersSchema);
+    (0, mongoose_1.model)("Category", category_1.categorySchema);
+    (0, mongoose_1.model)("SubCategory", subCategory_1.subCategorySchema);
+    (0, mongoose_1.model)("Product", product_1.productSchema);
+    (0, mongoose_1.model)("Address", address_1.addressSchema);
+    (0, mongoose_1.model)("Reviews", reviews_1.reviewSchema);
+    (0, mongoose_1.model)("Area", area_1.areaSchema);
+    (0, mongoose_1.model)("DrivingLicence", drivingLicence_1.drivingLicenceSchema);
+    (0, mongoose_1.model)("CouponCode", couponCode_1.couponCodeSchema);
+    (0, mongoose_1.model)("Tax", tax_1.taxSchema);
+    (0, mongoose_1.model)("Meesage", messages_1.messageSchema);
+    (0, mongoose_1.model)("DriverGeoLocation", driverGeoLocation_1.driverGeoLocationSchema);
+    (0, mongoose_1.model)("Payment", payment_1.paymentSchema);
+};
+//# sourceMappingURL=models.js.map

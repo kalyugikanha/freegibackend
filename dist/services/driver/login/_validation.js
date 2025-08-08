@@ -1,0 +1,45 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateLogin = exports.validateVerify = exports.validateSignup = exports.validateMobile = exports.Users = void 0;
+const mongoose_1 = require("mongoose");
+const users_1 = require("../../../models/users");
+const joi_1 = __importDefault(require("joi"));
+exports.Users = (0, mongoose_1.model)("Users", users_1.usersSchema);
+const validateMobile = (data) => {
+    const schema = joi_1.default.object({
+        mobileNumber: joi_1.default.string().required().label("Mobile Number"),
+    });
+    return schema.validate(data, { abortEarly: false, allowUnknown: true });
+};
+exports.validateMobile = validateMobile;
+const validateSignup = (data) => {
+    const schema = joi_1.default.object({
+        email: joi_1.default.string().email().required().label("Email"),
+        firstName: joi_1.default.string().required().label("Firstname"),
+        lastName: joi_1.default.string().required().label("Lastname"),
+        mobileNumber: joi_1.default.string().required().label("MobileNumber"),
+        password: joi_1.default.string().required().label("password"),
+    });
+    return schema.validate(data, { abortEarly: false, allowUnknown: true });
+};
+exports.validateSignup = validateSignup;
+const validateVerify = (data) => {
+    const schema = joi_1.default.object({
+        mobileNumber: joi_1.default.string().required().label("Mobile Number"),
+        otp: joi_1.default.string().required().label("otp"),
+    });
+    return schema.validate(data, { abortEarly: false, allowUnknown: true });
+};
+exports.validateVerify = validateVerify;
+const validateLogin = (data) => {
+    const schema = joi_1.default.object({
+        email: joi_1.default.string().required().label("Mobile or Email"),
+        password: joi_1.default.string().required().label("Password"),
+    });
+    return schema.validate(data, { abortEarly: false, allowUnknown: true });
+};
+exports.validateLogin = validateLogin;
+//# sourceMappingURL=_validation.js.map

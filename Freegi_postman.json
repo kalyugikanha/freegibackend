@@ -1,0 +1,2550 @@
+{
+  "info": {
+    "name": "Freegi Backend API Collection",
+    "description": "Complete API collection for Freegi e-commerce backend including SuperAdmin, Admin, Customer, and Driver APIs",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{auth_token}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3100",
+      "type": "string",
+      "description": "Base URL for Freegi API"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string",
+      "description": "Authentication token for authorized requests"
+    },
+    {
+      "key": "customer_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "driver_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "store_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "SuperAdmin APIs",
+      "description": "SuperAdmin APIs for store management and admin creation",
+      "item": [
+        {
+          "name": "Authentication",
+          "item": [
+            {
+              "name": "SuperAdmin Login",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"superadmin@freegi.com\",\n  \"password\": \"SuperAdmin@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/superAdmin/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["superAdmin", "login"]
+                },
+                "description": "Login for SuperAdmin to manage stores and admins"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Store Management",
+          "item": [
+            {
+              "name": "Create Store/Admin",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storeName\": \"Freegi Store Mumbai\",\n  \"storeAddress\": \"123 Main Street, Mumbai, Maharashtra, 400001\",\n  \"ownerName\": \"John Doe\",\n  \"email\": \"admin@freegistore.com\",\n  \"mobileNumber\": \"+919876543210\",\n  \"password\": \"Admin@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/superAdmin/storeUser/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["superAdmin", "storeUser", "register"]
+                },
+                "description": "Create new store with admin user"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin APIs",
+      "description": "Admin APIs for store management, products, orders, and content",
+      "item": [
+        {
+          "name": "Authentication",
+          "item": [
+            {
+              "name": "Admin Login",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@freegistore.com\",\n  \"password\": \"Admin@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "login"]
+                },
+                "description": "Login for admin to access store management"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Profile Management",
+          "item": [
+            {
+              "name": "Get Admin Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/profile/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "profile", "view"]
+                },
+                "description": "Get admin profile information"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Category Management",
+          "item": [
+            {
+              "name": "Get Categories List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"status\": \"enable\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/category/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "category", "list"]
+                },
+                "description": "Get list of all categories with pagination"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Electronics\",\n  \"image\": \"https://example.com/electronics.jpg\",\n  \"icon\": \"electronics-icon.png\",\n  \"color\": \"#2196F3\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/category/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "category", "add"]
+                },
+                "description": "Add new category"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"category_id_here\",\n  \"name\": \"Updated Electronics\",\n  \"image\": \"https://example.com/updated-electronics.jpg\",\n  \"icon\": \"updated-electronics-icon.png\",\n  \"color\": \"#4CAF50\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/category/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "category", "update"]
+                },
+                "description": "Update existing category"
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"category_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/category/remove",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "category", "remove"]
+                },
+                "description": "Delete category"
+              },
+              "response": []
+            },
+            {
+              "name": "Change Category Status",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"category_id_here\",\n  \"status\": \"disable\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/category/change-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "category", "change-status"]
+                },
+                "description": "Enable/disable category"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "SubCategory Management",
+          "item": [
+            {
+              "name": "Get SubCategories List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"categoryId\": \"category_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/subCategory/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "subCategory", "list"]
+                },
+                "description": "Get list of subcategories"
+              },
+              "response": []
+            },
+            {
+              "name": "Add SubCategory",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Smartphones\",\n  \"categoryId\": \"category_id_here\",\n  \"image\": \"https://example.com/smartphones.jpg\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/subCategory/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "subCategory", "add"]
+                },
+                "description": "Add new subcategory"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Product Management",
+          "item": [
+            {
+              "name": "Get Products List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"categoryId\": \"category_id_here\",\n  \"subCategoryId\": \"subcategory_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/product/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "product", "list"]
+                },
+                "description": "Get list of products with filters"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"iPhone 15 Pro\",\n  \"category\": \"category_id_here\",\n  \"subCategory\": \"subcategory_id_here\",\n  \"description\": \"Latest iPhone with advanced features\",\n  \"image\": \"https://example.com/iphone15pro.jpg\",\n  \"imageList\": [\n    \"https://example.com/iphone15pro-1.jpg\",\n    \"https://example.com/iphone15pro-2.jpg\",\n    \"https://example.com/iphone15pro-3.jpg\"\n  ],\n  \"status\": \"enable\",\n  \"storeId\": \"{{store_id}}\",\n  \"options\": [\n    {\n      \"title\": \"128GB - Space Black\",\n      \"mass\": \"128GB\",\n      \"stock\": 50,\n      \"price\": 99999\n    },\n    {\n      \"title\": \"256GB - Natural Titanium\",\n      \"mass\": \"256GB\",\n      \"stock\": 30,\n      \"price\": 109999\n    },\n    {\n      \"title\": \"512GB - Blue Titanium\",\n      \"mass\": \"512GB\",\n      \"stock\": 20,\n      \"price\": 129999\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/product/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "product", "add"]
+                },
+                "description": "Add new product with options (variants)"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"product_id_here\",\n  \"name\": \"Updated iPhone 15 Pro\",\n  \"category\": \"category_id_here\",\n  \"subCategory\": \"subcategory_id_here\",\n  \"description\": \"Updated description for iPhone with advanced features\",\n  \"image\": \"https://example.com/updated-iphone15pro.jpg\",\n  \"imageList\": [\n    \"https://example.com/updated-iphone15pro-1.jpg\",\n    \"https://example.com/updated-iphone15pro-2.jpg\"\n  ],\n  \"status\": \"enable\",\n  \"storeId\": \"{{store_id}}\",\n  \"options\": [\n    {\n      \"title\": \"128GB - Space Black\",\n      \"mass\": \"128GB\",\n      \"stock\": 45,\n      \"price\": 98999\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/product/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "product", "update"]
+                },
+                "description": "Update existing product"
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"product_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/product/remove",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "product", "remove"]
+                },
+                "description": "Delete product"
+              },
+              "response": []
+            },
+            {
+              "name": "Upload Product Image",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/product/upload-image",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "product", "upload-image"]
+                },
+                "description": "Upload product image"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Order Management",
+          "item": [
+            {
+              "name": "Get Orders List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"status\": \"pending\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/order/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "order", "list"]
+                },
+                "description": "Get list of orders with status filter"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Order Status",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"status\": \"confirmed\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/order/update-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "order", "update-status"]
+                },
+                "description": "Update order status (pending, confirmed, shipped, delivered, cancelled)"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Banner Management",
+          "item": [
+            {
+              "name": "Get Banners List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"status\": \"enable\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/banner/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "banner", "list"]
+                },
+                "description": "Get list of banners"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Banner",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Summer Sale Banner\",\n  \"image\": \"https://example.com/summer-sale-banner.jpg\",\n  \"description\": \"Get up to 50% off on electronics\",\n  \"link\": \"/category/electronics\",\n  \"status\": \"enable\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/banner/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "banner", "add"]
+                },
+                "description": "Add new banner"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Coupon Management",
+          "item": [
+            {
+              "name": "Get Coupons List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/coupon-code/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "coupon-code", "list"]
+                },
+                "description": "Get list of coupon codes"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Coupon",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Summer Sale\",\n  \"code\": \"SUMMER50\",\n  \"discount\": 50,\n  \"discountType\": \"percentage\",\n  \"minOrderAmount\": 1000,\n  \"maxDiscount\": 500,\n  \"validFrom\": \"2024-06-01\",\n  \"validTo\": \"2024-08-31\",\n  \"usageLimit\": 100,\n  \"status\": \"enable\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/coupon-code/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "coupon-code", "add"]
+                },
+                "description": "Add new coupon code"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Tax Management",
+          "item": [
+            {
+              "name": "Get Tax List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/tax/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "tax", "list"]
+                },
+                "description": "Get list of tax configurations"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Tax",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"GST\",\n  \"percentage\": 18,\n  \"description\": \"Goods and Services Tax\",\n  \"status\": \"enable\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/tax/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "tax", "add"]
+                },
+                "description": "Add new tax configuration"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "item": [
+            {
+              "name": "Get Dashboard Counts",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/dashboard/count",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "dashboard", "count"]
+                },
+                "description": "Get dashboard statistics (total products, orders, customers, etc.)"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Customer APIs",
+      "description": "Customer APIs for shopping, orders, profile, and wallet management",
+      "item": [
+        {
+          "name": "Authentication",
+          "item": [
+            {
+              "name": "Customer Signup",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"mobileNumber\": \"+919876543210\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/signup",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "signup"]
+                },
+                "description": "Customer signup with OTP verification"
+              },
+              "response": []
+            },
+            {
+              "name": "Verify OTP",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mobileNumber\": \"+919876543210\",\n  \"otp\": \"123456\",\n  \"password\": \"Customer@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/verify",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "verify"]
+                },
+                "description": "Verify OTP and set password"
+              },
+              "response": []
+            },
+            {
+              "name": "Customer Login",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mobileNumber\": \"+919876543210\",\n  \"password\": \"Customer@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "login"]
+                },
+                "description": "Customer login with mobile number and password"
+              },
+              "response": []
+            },
+            {
+              "name": "Forgot Password",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mobileNumber\": \"+919876543210\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/forgot-password",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "forgot-password"]
+                },
+                "description": "Send OTP for password reset"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Profile Management",
+          "item": [
+            {
+              "name": "Get Customer Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/customer/profile/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "profile", "view"]
+                },
+                "description": "Get customer profile with default address"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Customer Profile",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"email\": \"john.smith@example.com\",\n  \"gender\": \"male\",\n  \"dob\": \"1990-01-15\",\n  \"profilePic\": \"https://example.com/profile.jpg\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/profile/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "profile", "update"]
+                },
+                "description": "Update customer profile information"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Address Management",
+          "item": [
+            {
+              "name": "Get Address List",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/address/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "address", "list"]
+                },
+                "description": "Get customer's saved addresses"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Address",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tag\": \"Home\",\n  \"addressType\": \"residential\",\n  \"floor\": \"2nd Floor\",\n  \"address\": \"123 Main Street, Apartment 201, Mumbai, Maharashtra\",\n  \"landMark\": \"Near City Mall\",\n  \"pincode\": \"400001\",\n  \"lat\": \"19.0760\",\n  \"long\": \"72.8777\",\n  \"default\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/address/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "address", "add"]
+                },
+                "description": "Add new delivery address"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Address",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"address_id_here\",\n  \"tag\": \"Office\",\n  \"addressType\": \"commercial\",\n  \"floor\": \"5th Floor\",\n  \"address\": \"456 Business Street, Office 501, Mumbai, Maharashtra\",\n  \"landMark\": \"Opposite Metro Station\",\n  \"pincode\": \"400002\",\n  \"lat\": \"19.0760\",\n  \"long\": \"72.8777\",\n  \"default\": false\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/address/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "address", "update"]
+                },
+                "description": "Update existing address"
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Address",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"address_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/address/remove",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "address", "remove"]
+                },
+                "description": "Delete saved address"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Product Catalog",
+          "item": [
+            {
+              "name": "Get Categories",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/category/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "category", "list"]
+                },
+                "description": "Get list of product categories"
+              },
+              "response": []
+            },
+            {
+              "name": "Get SubCategories",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"category_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/subCategory/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "subCategory", "list"]
+                },
+                "description": "Get subcategories for a category"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Products",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"categoryId\": \"category_id_here\",\n  \"subCategoryId\": \"subcategory_id_here\",\n  \"sortBy\": \"price\",\n  \"sortOrder\": \"asc\",\n  \"priceRange\": {\n    \"min\": 1000,\n    \"max\": 50000\n  },\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/product/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "product", "list"]
+                },
+                "description": "Get products with filters, sorting, and wishlist status"
+              },
+              "response": []
+            },
+            {
+              "name": "Search Products",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searchTerm\": \"iPhone\",\n  \"pageNo\": 1,\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/product/search",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "product", "search"]
+                },
+                "description": "Search products by name or description"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Shopping Cart",
+          "item": [
+            {
+              "name": "Add to Cart",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"productId\": \"product_id_here\",\n      \"optionId\": \"option_id_here\",\n      \"quantity\": 2,\n      \"price\": 99999\n    }\n  ],\n  \"dealofthedays\": [\n    {\n      \"dealId\": \"deal_id_here\",\n      \"quantity\": 1\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "add"]
+                },
+                "description": "Add products or deals to cart"
+              },
+              "response": []
+            },
+            {
+              "name": "View Cart",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "view"]
+                },
+                "description": "Get cart contents with product details"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Cart Item",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"product_id_here\",\n  \"optionId\": \"option_id_here\",\n  \"quantity\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "update"]
+                },
+                "description": "Update quantity of cart item"
+              },
+              "response": []
+            },
+            {
+              "name": "Remove from Cart",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"product_id_here\",\n  \"optionId\": \"option_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/remove",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "remove"]
+                },
+                "description": "Remove item from cart"
+              },
+              "response": []
+            },
+            {
+              "name": "Apply Coupon",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"couponCode\": \"SUMMER50\",\n  \"cartAmount\": 5000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/coupon-apply",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "coupon-apply"]
+                },
+                "description": "Apply coupon code to cart"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Available Coupons",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cartAmount\": 5000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/coupon-list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "coupon-list"]
+                },
+                "description": "Get available coupons for current cart amount"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Order Management",
+          "item": [
+            {
+              "name": "Place Order",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"ORD_\" + new Date().getTime(),\n  \"products\": [\n    {\n      \"productId\": \"product_id_here\",\n      \"optionId\": \"option_id_here\",\n      \"quantity\": 2,\n      \"price\": 99999\n    }\n  ],\n  \"dealofthedays\": [\n    {\n      \"dealId\": \"deal_id_here\",\n      \"quantity\": 1\n    }\n  ],\n  \"totalAmount\": 205000,\n  \"discount\": 5000,\n  \"deliveryCharge\": 100,\n  \"handlingCharge\": 50,\n  \"couponCode\": \"coupon_id_here\",\n  \"cartOffer\": {\n    \"cartOfferId\": \"offer_id_here\",\n    \"type\": \"product\",\n    \"productId\": \"free_product_id\",\n    \"optionId\": \"free_option_id\"\n  },\n  \"paymentMethod\": \"razorpay\",\n  \"tax\": \"tax_id_here\",\n  \"deliveryInstruction\": \"Ring doorbell twice\",\n  \"address\": \"address_id_here\",\n  \"notes\": \"Handle with care\",\n  \"description\": \"Order for iPhone and accessories\",\n  \"signature\": \"payment_signature_here\",\n  \"cartId\": \"cart_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/order/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "order", "add"]
+                },
+                "description": "Place new order with payment"
+              },
+              "response": []
+            },
+            {
+              "name": "Verify Payment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"paymentId\": \"razorpay_payment_id\",\n  \"signature\": \"payment_signature\",\n  \"paymentMethod\": \"razorpay\",\n  \"cartId\": \"cart_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/order/verify-payment",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "order", "verify-payment"]
+                },
+                "description": "Verify payment for order"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order History",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1,\n  \"status\": \"delivered\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/order/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "order", "list"]
+                },
+                "description": "Get customer's order history with status filter"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order Details",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/order/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "order", "view"]
+                },
+                "description": "Get detailed information about specific order"
+              },
+              "response": []
+            },
+            {
+              "name": "Cancel Order",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"reason\": \"Changed mind\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/order/cancel",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "order", "cancel"]
+                },
+                "description": "Cancel order with reason"
+              },
+              "response": []
+            },
+            {
+              "name": "Reorder",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"previous_order_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/cart/reorder",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "cart", "reorder"]
+                },
+                "description": "Add items from previous order to cart"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Wishlist",
+          "item": [
+            {
+              "name": "Add to Wishlist",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\",\n  \"productId\": \"product_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wish/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wish", "add"]
+                },
+                "description": "Add product to wishlist"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Wishlist",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wish/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wish", "list"]
+                },
+                "description": "Get customer's wishlist with product details"
+              },
+              "response": []
+            },
+            {
+              "name": "Remove from Wishlist",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\",\n  \"productId\": \"product_id_here\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wish/remove",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wish", "remove"]
+                },
+                "description": "Remove product from wishlist"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Wallet & Payments",
+          "item": [
+            {
+              "name": "Get Wallet Balance",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"{{customer_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wallet/amount-detail",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wallet", "amount-detail"]
+                },
+                "description": "Get current wallet balance"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Money to Wallet",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 1000,\n  \"paymentMethod\": \"razorpay\",\n  \"description\": \"Add money to wallet\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wallet/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wallet", "add"]
+                },
+                "description": "Add money to wallet via payment gateway"
+              },
+              "response": []
+            },
+            {
+              "name": "Verify Wallet Payment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"razorpay_payment_id\",\n  \"signature\": \"payment_signature\",\n  \"walletId\": \"wallet_transaction_id\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wallet/verify-payment",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wallet", "verify-payment"]
+                },
+                "description": "Verify wallet top-up payment"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Wallet Transactions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/wallet/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "wallet", "list"]
+                },
+                "description": "Get wallet transaction history"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Reviews & Ratings",
+          "item": [
+            {
+              "name": "Get Most Reviewed Items",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/review-item/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "review-item", "list"]
+                },
+                "description": "Get products with most reviews"
+              },
+              "response": []
+            },
+            {
+              "name": "Add Product Review",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"product_id_here\",\n  \"rating\": 5,\n  \"comment\": \"Excellent product, highly recommended!\",\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/review-item/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "review-item", "add"]
+                },
+                "description": "Add review and rating for product"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Deal of the Day",
+          "item": [
+            {
+              "name": "Get Deal of the Day",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/dealOfTheDay/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "dealOfTheDay", "list"]
+                },
+                "description": "Get current deals of the day"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Tax Information",
+          "item": [
+            {
+              "name": "Get Tax Details",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storeId\": \"{{store_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/tax/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "tax", "list"]
+                },
+                "description": "Get applicable tax rates"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Customer Service",
+          "item": [
+            {
+              "name": "Submit Support Request",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"Order Delivery Issue\",\n  \"message\": \"My order hasn't been delivered yet, please check the status\",\n  \"orderId\": \"order_id_here\",\n  \"priority\": \"high\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/customerservice/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "customerservice", "add"]
+                },
+                "description": "Submit customer support request"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Support Tickets",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/customer/customerservice/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["customer", "customerservice", "list"]
+                },
+                "description": "Get customer's support ticket history"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Driver APIs",
+      "description": "Driver/Delivery Agent APIs for order delivery and location tracking",
+      "item": [
+        {
+          "name": "Authentication",
+          "item": [
+            {
+              "name": "Register Driver",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Driver\",\n  \"lastName\": \"Name\",\n  \"email\": \"driver@freegi.com\",\n  \"mobileNumber\": \"+919876543211\",\n  \"password\": \"Driver@123\",\n  \"vehicleType\": \"bike\",\n  \"vehicleNumber\": \"MH01AB1234\",\n  \"licenseNumber\": \"DL123456789\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "register"]
+                },
+                "description": "Register new delivery driver"
+              },
+              "response": []
+            },
+            {
+              "name": "Driver Login",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"driver@freegi.com\",\n  \"password\": \"Driver@123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "login"]
+                },
+                "description": "Driver login with email and password"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Profile Management",
+          "item": [
+            {
+              "name": "Get Driver Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/driver/profile/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "profile", "view"]
+                },
+                "description": "Get driver profile information"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Driver Profile",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Updated Driver\",\n  \"lastName\": \"Name\",\n  \"email\": \"updated.driver@freegi.com\",\n  \"mobileNumber\": \"+919876543211\",\n  \"profilePic\": \"https://example.com/driver-profile.jpg\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/profile/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "profile", "update"]
+                },
+                "description": "Update driver profile"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Driving License",
+          "item": [
+            {
+              "name": "Upload License Documents",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "licenseNumber",
+                      "value": "DL123456789",
+                      "type": "text"
+                    },
+                    {
+                      "key": "expiryDate",
+                      "value": "2025-12-31",
+                      "type": "text"
+                    },
+                    {
+                      "key": "frontImage",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "key": "backImage",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/driving-license/add",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "driving-license", "add"]
+                },
+                "description": "Upload driving license documents"
+              },
+              "response": []
+            },
+            {
+              "name": "Get License Details",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/driving-license/view",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "driving-license", "view"]
+                },
+                "description": "Get driver's license details"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Area Management",
+          "item": [
+            {
+              "name": "Get Available Areas",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/area/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "area", "list"]
+                },
+                "description": "Get list of areas driver can deliver to"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Service Areas",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"areas\": [\"400001\", \"400002\", \"400003\"],\n  \"isActive\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/area/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "area", "update"]
+                },
+                "description": "Update driver's service areas"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Order Management",
+          "item": [
+            {
+              "name": "Get Dashboard Count",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/dashboard",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "dashboard"]
+                },
+                "description": "Get driver dashboard statistics"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Available Orders",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "list"]
+                },
+                "description": "Get available orders for delivery"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Active Orders",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/active-order",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "active-order"]
+                },
+                "description": "Get driver's active delivery orders"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order History",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageNo\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/history",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "history"]
+                },
+                "description": "Get driver's completed order history"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Order Status",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"status\": \"shipped\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/update-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "update-status"]
+                },
+                "description": "Update order delivery status"
+              },
+              "response": []
+            },
+            {
+              "name": "Cancel Order",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"reason\": \"Customer not available\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/cancel",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "cancel"]
+                },
+                "description": "Cancel order delivery with reason"
+              },
+              "response": []
+            },
+            {
+              "name": "Cash Payment Confirmation",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"amountReceived\": 25000,\n  \"notes\": \"Payment collected in cash\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/order/cash-payment",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "order", "cash-payment"]
+                },
+                "description": "Confirm cash payment received from customer"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Location Tracking",
+          "item": [
+            {
+              "name": "Update Location",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\",\n  \"lat\": \"19.0760\",\n  \"long\": \"72.8777\",\n  \"date\": \"2024-01-15T10:30:00.000Z\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/geoLocation/update",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "geoLocation", "update"]
+                },
+                "description": "Update driver's current location for order tracking"
+              },
+              "response": []
+            },
+            {
+              "name": "End Delivery",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"order_id_here\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/geoLocation/delivery-end",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "geoLocation", "delivery-end"]
+                },
+                "description": "Mark delivery as completed"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Messages",
+          "item": [
+            {
+              "name": "Get Chat Messages",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-auth-token",
+                    "value": "{{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatId\": \"chat_id_here\",\n  \"pageNo\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/driver/messages/list",
+                  "host": ["{{base_url}}"],
+                  "path": ["driver", "messages", "list"]
+                },
+                "description": "Get chat messages between driver and customer"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "File Management",
+      "description": "File upload and static file serving APIs",
+      "item": [
+        {
+          "name": "File Upload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "folder",
+                  "value": "products",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/upload",
+              "host": ["{{base_url}}"],
+              "path": ["upload"]
+            },
+            "description": "Upload files (images, documents)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Static File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/files/filename.jpg",
+              "host": ["{{base_url}}"],
+              "path": ["files", "filename.jpg"]
+            },
+            "description": "Access uploaded static files"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "WebSocket Events",
+      "description": "Real-time messaging events using Socket.io",
+      "item": [
+        {
+          "name": "Socket Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "ws://{{base_url}}/socket.io/?transport=websocket",
+              "protocol": "ws",
+              "host": ["{{base_url}}"],
+              "path": ["socket.io", ""],
+              "query": [
+                {
+                  "key": "transport",
+                  "value": "websocket"
+                }
+              ]
+            },
+            "description": "WebSocket connection for real-time messaging"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-generate order ID for order creation requests",
+          "if (pm.request.url.path.includes('order') && pm.request.url.path.includes('add')) {",
+          "    const orderId = 'ORD_' + Date.now();",
+          "    pm.request.body.raw = pm.request.body.raw.replace('\"ORD_\" + new Date().getTime()', '\"' + orderId + '\"');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Store auth token from login responses",
+          "if (pm.response.headers.get('x-auth-token')) {",
+          "    pm.collectionVariables.set('auth_token', pm.response.headers.get('x-auth-token'));",
+          "}",
+          "",
+          "// Store token from response body if present",
+          "if (pm.response.json() && pm.response.json().token) {",
+          "    pm.collectionVariables.set('auth_token', pm.response.json().token);",
+          "}",
+          "",
+          "// Store user IDs from login responses",
+          "if (pm.response.json() && pm.response.json().id) {",
+          "    const url = pm.request.url.toString();",
+          "    if (url.includes('/customer/')) {",
+          "        pm.collectionVariables.set('customer_id', pm.response.json().id);",
+          "    } else if (url.includes('/admin/')) {",
+          "        pm.collectionVariables.set('admin_id', pm.response.json().id);",
+          "    } else if (url.includes('/driver/')) {",
+          "        pm.collectionVariables.set('driver_id', pm.response.json().id);",
+          "    }",
+          "}",
+          "",
+          "// Store store ID from admin responses",
+          "if (pm.response.json() && pm.response.json().user && pm.response.json().user.storeId) {",
+          "    pm.collectionVariables.set('store_id', pm.response.json().user.storeId);",
+          "}"
+        ]
+      }
+    }
+  ]
+} 

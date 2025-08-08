@@ -1,0 +1,30 @@
+import { model } from "mongoose";
+import { usersSchema } from "../models/users";
+import { categorySchema } from "../models/category";
+import { subCategorySchema } from "../models/subCategory";
+import { productSchema } from "../models/product";
+import { addressSchema } from "../models/address";
+import { reviewSchema } from "../models/reviews";
+import { areaSchema } from "../models/area";
+import { drivingLicenceSchema } from "../models/drivingLicence";
+import { couponCodeSchema } from "../models/couponCode";
+import { taxSchema } from "../models/tax";
+import { messageSchema } from "../models/messages";
+import { driverGeoLocationSchema } from "../models/driverGeoLocation";
+import { paymentSchema } from "../models/payment";
+
+export default () => {
+  model("Users", usersSchema);
+  model("Category", categorySchema);
+  model("SubCategory", subCategorySchema);
+  model("Product", productSchema);
+  model("Address", addressSchema);
+  model("Reviews", reviewSchema);
+  model("Area", areaSchema);
+  model("DrivingLicence", drivingLicenceSchema);
+  model("CouponCode", couponCodeSchema);
+  model("Tax", taxSchema);
+  model("Meesage", messageSchema);
+  model("DriverGeoLocation", driverGeoLocationSchema);
+  model("Payment", paymentSchema);
+};
